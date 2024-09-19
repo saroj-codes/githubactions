@@ -1,0 +1,21 @@
+name: Deployment
+
+on:
+  workflow_run:
+    workflows: ["Deploy"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Stop and Remove Old Docker Containers - frontend
+        run: sudo docker stop saroj_frontend_container || true
+
+      - name: Pull the Docker Image - frontend
+        run: sudo docker pull sarojgg/github-actions:latest
+
+      - name: Run the Docker Container - frontend
+        run: sudo docker run -d -p 80:3000 --name saroj_frontend_container sarojgg/github-actions:latest
