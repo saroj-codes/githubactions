@@ -10,4 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - run: docker build .
+      - run: docker build . -t sarojgg/github-actions
+      - run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
+      - run: docker push sarojgg/github-actions:latest
