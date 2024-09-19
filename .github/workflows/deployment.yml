@@ -12,7 +12,9 @@ jobs:
 
     steps:
       - name: Stop and Remove Old Docker Containers - frontend
-        run: sudo docker stop saroj_frontend_container || true
+        run: |
+          sudo docker stop saroj_frontend_container || true
+          sudo docker rm saroj_frontend_container || true
 
       - name: Pull the Docker Image - frontend
         run: sudo docker pull sarojgg/github-actions:latest
